@@ -58,33 +58,32 @@
     - name: If no dedicated device (nodevice) specified, use ext4 (overlay) options for concourse worker
       set_fact:
         fs_volume_type: "ext4"
-      no_log: True
       when: var_lib_device == "nodevice"
       tags:
        - notforbuild
 
-    # Symlink are defined for nvme and systemd mount doesnt accept it
-    - name: Get the real name of device, not symlink
-      shell: "readlink -f {{ var_lib_device }}"
-      register: real_device
+    - name: Get information about dedicated device
       when: var_lib_device != "nodevice"
-      tags:
-       - notforbuild
+      block:
+        # Symlink are defined for nvme and systemd mount doesnt accept it
+        - name: Get the real name of device, not symlink
+          shell: "readlink -f {{ var_lib_device }}"
+          register: real_device
+          tags:
+           - notforbuild
 
-    - name: Set real name of device
-      set_fact:
-        var_lib_device: "{{ real_device.stdout }}"
-      when: var_lib_device != "nodevice"
-      tags:
-       - notforbuild
+        - name: Set real name of device
+          set_fact:
+            var_lib_device: "{{ real_device.stdout }}"
+          tags:
+           - notforbuild
 
-    - name: Get systemd mount name
-      command: "systemd-escape -p --suffix=mount '{{ concourse_work_dir }}'"
-      register: systemd_mount_name
-      check_mode: no
-      when: var_lib_device != "nodevice"
-      tags:
-       - notforbuild
+        - name: Get systemd mount name
+          command: "systemd-escape -p --suffix=mount '{{ concourse_work_dir }}'"
+          register: systemd_mount_name
+          check_mode: no
+          tags:
+           - notforbuild
 
   roles:
     - role: cycloid.telegraf
