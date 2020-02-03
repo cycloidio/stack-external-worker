@@ -55,25 +55,35 @@
       tags:
        - notforbuild
 
-    # Symlink are defined for nvme and systemd mount doesnt accept it
-    - name: Get the real name of device, not symlink
-      shell: "readlink -f {{ var_lib_device }}"
-      register: real_device
-      tags:
-       - notforbuild
-
-    - name: Set real name of device
+    - name: If no dedicated device (nodevice) specified, use ext4 (overlay) options for concourse worker
       set_fact:
-        var_lib_device: "{{ real_device.stdout }}"
+        fs_volume_type: "ext4"
+      when: var_lib_device == "nodevice"
       tags:
        - notforbuild
 
-    - name: Get systemd mount name
-      command: "systemd-escape -p --suffix=mount '{{ concourse_work_dir }}'"
-      register: systemd_mount_name
-      check_mode: no
-      tags:
-       - notforbuild
+    - name: Get information about dedicated device
+      when: var_lib_device != "nodevice"
+      block:
+        # Symlink are defined for nvme and systemd mount doesnt accept it
+        - name: Get the real name of device, not symlink
+          shell: "readlink -f {{ var_lib_device }}"
+          register: real_device
+          tags:
+           - notforbuild
+
+        - name: Set real name of device
+          set_fact:
+            var_lib_device: "{{ real_device.stdout }}"
+          tags:
+           - notforbuild
+
+        - name: Get systemd mount name
+          command: "systemd-escape -p --suffix=mount '{{ concourse_work_dir }}'"
+          register: systemd_mount_name
+          check_mode: no
+          tags:
+           - notforbuild
 
   roles:
     - role: cycloid.telegraf
@@ -92,6 +102,7 @@
       systemd_mount_device: "{{ var_lib_device }}"
       systemd_mount_mountpoint: "{{ concourse_work_dir }}"
       systemd_mount_options: "{{ fs_volume_options[fs_volume_type]['fs_mount_options'] }}"
+      when: var_lib_device != "nodevice"
       tags:
        - notforbuild
 
@@ -104,6 +115,7 @@
         - "[Unit]"
         - "After={{ systemd_mount_name.stdout }}"
         - "Requires={{ systemd_mount_name.stdout }}"
+      when: var_lib_device != "nodevice"
       tags:
        - notforbuild
 
