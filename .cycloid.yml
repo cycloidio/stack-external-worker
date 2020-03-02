@@ -1,6 +1,7 @@
 # Configuration of the CI pipeline
 name: 'External worker'
 canonical: 'stack-external-worker'
+status: 'public'
 description: 'This stack will deploy an Amazon ASG with external workers for Cycloid.io'
 keywords:
   - 'workers'
