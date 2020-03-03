@@ -45,6 +45,10 @@ pipeline_env_vars:
   PIPELINE_TEMPLATE: external-worker.yml
   PIPELINE_VARIABLES: variables.sample.yml
   ORGANIZATION: cycloid-owl
+  # Which project to use for pipeline
+  PROJECT: ci-stack-external-worker
+  # Which environment to use for pipeline
+  ENVIRONMENT: master
   PIPELINE_NAME: ci-stack-external-worker-master-validate
 
 #. config_ansible_path (required): .ci/ansible
