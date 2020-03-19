@@ -42,7 +42,7 @@ terraform_env_vars:
 pipeline_env_vars:
   USERNAME: ((cycloid_bot_account.login))
   PASSWORD: ((cycloid_bot_account.password))
-  PIPELINE_TEMPLATE: external-worker.yml
+  PIPELINE_TEMPLATE: pipeline.yml
   PIPELINE_VARIABLES: variables.sample.yml
   ORGANIZATION: cycloid-owl
   # Which project to use for pipeline
