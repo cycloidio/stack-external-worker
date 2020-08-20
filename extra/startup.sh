@@ -19,10 +19,10 @@ _() {
     VERSION=${VERSION:-""}
     CLOUD_PROVIDER=${CLOUD_PROVIDER:-""}
     WORKER_KEY=${WORKER_KEY:-""}
-    SCHEDULER_API_ADDRESS=${SCHEDULER_API_ADDRESS:-""}
-    SCHEDULER_HOST=${SCHEDULER_HOST:-""}
-    SCHEDULER_PORT=${SCHEDULER_PORT:-""}
-    TSA_PUBLIC_KEY=${TSA_PUBLIC_KEY:-""}
+    SCHEDULER_API_ADDRESS=${SCHEDULER_API_ADDRESS:-"https://scheduler.cycloid.io"}
+    SCHEDULER_HOST=${SCHEDULER_HOST:-"scheduler.cycloid.io"}
+    SCHEDULER_PORT=${SCHEDULER_PORT:-"32223"}
+    TSA_PUBLIC_KEY=${TSA_PUBLIC_KEY:-"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+To6R1hDAO00Xrt8q5Md38J9dh+aMIbV2GTqQkFcKwVAB6czbPPcitPWZ7y3Bw1dKMC8R7DGRAt01yWlkYo/voRp5prqKMc/uzkObhHNy42eJgZlStKU1IMw/fx0Rx+6Y3NClCCOecx415dkAH+PFudKosq4pFB9KjfOp3tMHqirMSF7dsbM3910gcPBL2NFHkOZ4cNfeSztXEg9wy4SExX3CHiUyLiShpwXa+C2f6IPdOJt+9ueXQIL0hcMmd12PRL5UU6/e5U5kldM4EWiJoohVbfoA1CRFF9QwJt6H3IiZPmd3sWqIVVy6Vssn5okjYLRwCwEd8+wd8tI6OnNb"}
     RUNTIMECONFIG_NAME=${RUNTIMECONFIG_NAME:-""}
     TEAM_ID=${TEAM_ID:-""}
     VAULT_URL=${VAULT_URL:-"https://vault.cycloid.io"}
@@ -69,7 +69,7 @@ _() {
 
     usage() {
         echo "Usage: $SCRIPT_NAME [-d] [-b BRANCH_NAME] [<cloud_provider>]" >&2
-        echo "The <cloud_provider> argument is optional, it can be either `aws`, `azure` or `gcp`." >&2
+        echo "The <cloud_provider> argument is optional, it can be either `aws`, `azure`, `gcp`, `flexible-engine` or `scaleway`." >&2
         echo '' >&2
         echo '  -d           Debug mode.' >&2
         echo '  -b           Branch to use for the external-worker stack (default: master).' >&2
@@ -135,6 +135,8 @@ _() {
                 VAR_LIB_DEVICE="/dev/disk/azure/scsi1/lun0"
             elif [[ "${CLOUD_PROVIDER}" == "flexible-engine" ]]; then
                 VAR_LIB_DEVICE="/dev/vdb"
+            elif [[ "${CLOUD_PROVIDER}" == "scaleway" ]]; then
+                VAR_LIB_DEVICE="/dev/sda"
             else
                 VAR_LIB_DEVICE="nodevice"
             fi
