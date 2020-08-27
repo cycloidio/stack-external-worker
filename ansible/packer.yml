@@ -41,11 +41,20 @@
         dest: /home/admin/first-boot.yml
         owner: admin
         group: admin
-    - template:
-        src: user-data.sh.tpl
-        dest: /home/admin/user-data.sh
-        owner: admin
-        group: admin
+    
+    - block:
+      - template:
+          src: user-data.sh.scw.tpl
+          dest: /home/admin/user-data.sh
+          owner: admin
+          group: admin
+        when: ansible_system_vendor == "Scaleway"
+      - template:
+          src: user-data.sh.tpl
+          dest: /home/admin/user-data.sh
+          owner: admin
+          group: admin
+        when: ansible_system_vendor != "Scaleway"
 
     # Generate the ansible hosts file like https://www.packer.io/docs/provisioners/ansible-local.html#inventory_groups do.
     # We do that because we need this inventory file for post ansible run to deploy the code when the AWS instance boot

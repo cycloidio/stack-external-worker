@@ -71,8 +71,8 @@
     {
       "type": "ansible-local",
       "command": "ANSIBLE_STDOUT_CALLBACK=actionable ANSIBLE_FORCE_COLOR=1 PYTHONUNBUFFERED=1 ansible-playbook",
-      "playbook_file": "packer.yml",
-      "playbook_dir": "./",
+      "playbook_file": "../packer.yml",
+      "playbook_dir": "../",
       "extra_arguments": [
         "--diff",
         "-e 'env={{user `env`}}'",
@@ -84,9 +84,9 @@
     {
       "type": "ansible-local",
       "command": "ANSIBLE_STDOUT_CALLBACK=actionable ANSIBLE_FORCE_COLOR=1 PYTHONUNBUFFERED=1 ansible-playbook",
-      "galaxy_file": "./requirements.yml",
-      "playbook_file": "./external-worker.yml",
-      "playbook_dir": "./",
+      "galaxy_file": "../requirements.yml",
+      "playbook_file": "../external-worker.yml",
+      "playbook_dir": "../",
       "staging_directory": "/home/admin/{{user `project`}}",
       "extra_arguments": [
         "--diff",
