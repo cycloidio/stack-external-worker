@@ -18,13 +18,14 @@ function finish {
 
 trap 'rc=$?; set +e; finish' EXIT
 
-export ENV=${env}
+export CUSTOMER=${customer}
 export PROJECT=${project}
+export ENV=${env}
 export ROLE=${role}
 
 LOG_FILE="/var/log/user-data.log"
 
-bash /home/admin/user-data.sh
+bash /root/user-data.sh
 
 # ensure last return code is 0
 echo "End" >> $LOG_FILE

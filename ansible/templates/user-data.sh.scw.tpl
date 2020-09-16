@@ -27,9 +27,9 @@ set -x
 LOG_FILE="/var/log/user-data.log"
 
 ### ansible issue when run at boot : https://github.com/ansible/ansible/issues/21562
-export HOME=/home/admin
-export ANSIBLE_LOCAL_TEMP=$HOME/.ansible/tmp
-export ANSIBLE_REMOTE_TEMP=$HOME/.ansible/tmp
+export HOME="{{ install_user_home }}"
+export ANSIBLE_LOCAL_TEMP="${HOME}/.ansible/tmp"
+export ANSIBLE_REMOTE_TEMP="${HOME}/.ansible/tmp"
 ###
 
 ### Scaleway: get user-datas
@@ -39,9 +39,9 @@ export ENV=$(scw-userdata env)
 export ROLE=$(scw-userdata role)
 ###
 
-ANSIBLE_PLAYBOOK="/home/admin/first-boot.yml"
+ANSIBLE_PLAYBOOK="${HOME}/first-boot.yml"
 # Path is related to https://github.com/cycloidio/ansible-customer-ssh/blob/master/tasks/main.yml#L32
-ANSIBLE_DEPLOYMENT_PLAYBOOK="/home/admin/${PROJECT}/external-worker.yml"
+ANSIBLE_DEPLOYMENT_PLAYBOOK="${HOME}/${PROJECT}/external-worker.yml"
 
 # Output both to stdout and to ${LOG_FILE}
 exec &> >(tee -a ${LOG_FILE})
@@ -65,10 +65,10 @@ log "File ${ANSIBLE_PLAYBOOK} exists."
 log "Starting ${ANSIBLE_PLAYBOOK} playbook"
 
 ANSIBLE_FORCE_COLOR=1 PYTHONUNBUFFERED=1 ansible-playbook ${ANSIBLE_PLAYBOOK} --diff \
-    -e "env=${ENV}" \
-    -e "client=${CUSTOMER}" \
-    -e "role=${ROLE}" \
+    -e "customer=${CUSTOMER}" \
     -e "project=${PROJECT}" \
+    -e "env=${ENV}" \
+    -e "role=${ROLE}" \
     --connection=local
 FIRST_BOOK_STATUS=${?}
 
@@ -84,8 +84,10 @@ log "Finished ${ANSIBLE_PLAYBOOK} playbook"
 log "Run code deployment"
 
 ANSIBLE_FORCE_COLOR=1 PYTHONUNBUFFERED=1 ansible-playbook ${ANSIBLE_DEPLOYMENT_PLAYBOOK} --diff \
-            -e "env=${ENV}" \
+            -e "customer=${CUSTOMER}" \
             -e "project=${PROJECT}" \
+            -e "env=${ENV}" \
+            -e "role=${ROLE}" \
             --tags="runatboot,notforbuild" \
             --connection=local
 DEPLOY_STATUS=${?}
@@ -100,6 +102,6 @@ fi
 log "Finished running code deployment"
 
 log "Removing playbooks"
-rm -fr /home/admin/first-boot.yml /home/admin/${PROJECT} ${ANSIBLE_LOCAL_TEMP} -rf
+rm -rf "${HOME}/first-boot.yml" "${HOME}/${PROJECT}" "${ANSIBLE_LOCAL_TEMP}"
 log "Finishing ${0} script and removing it"
 rm ${0}
