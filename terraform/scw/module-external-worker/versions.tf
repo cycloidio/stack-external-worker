@@ -5,8 +5,5 @@ terraform {
       source  = "scaleway/scaleway"
       version = "~> 1.17.2"
     }
-    template = {
-      source = "hashicorp/template"
-    }
   }
 }

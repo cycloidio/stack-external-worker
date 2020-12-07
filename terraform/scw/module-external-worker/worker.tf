@@ -81,5 +81,10 @@ resource "scaleway_instance_server" "web" {
     value = "worker"
   }
 
-  cloud_init = data.template_file.cloud_init_worker.rendered
+  cloud_init = templatefile("${path.module}/templates/cloud-init.sh.tpl", {
+    customer = var.customer,
+    project  = var.project,
+    env      = var.env,
+    role     = "worker"
+  })
 }
