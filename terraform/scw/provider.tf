@@ -7,10 +7,3 @@ provider "scaleway" {
   organization_id = var.scw_organization_id
 }
 
-# Stack
-variable "build_team_name" {
-}
-
-variable "build_pipeline_name" {
-}
-

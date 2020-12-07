@@ -40,7 +40,7 @@ resource "scaleway_instance_volume" "data" {
   type       = var.worker_volume_disk_type
 }
 
-resource "scaleway_instance_server" "web" {
+resource "scaleway_instance_server" "worker" {
   count = var.worker_count
 
   name  = "${var.project}-worker-${var.env}-${count.index}"
