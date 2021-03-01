@@ -186,22 +186,16 @@ _() {
     timeout 300 bash -c "while pgrep apt > /dev/null; do sleep 1; done"
 
     apt-get update
-    apt-get install -y --no-install-recommends git python-setuptools curl jq
-
-    if command -v easy_install >/dev/null 2>&1; then
-        easy_install pip==20.3.4
-    else
-        apt-get install -y --no-install-recommends python-pip
-    fi
+    apt-get install -y --no-install-recommends git python3-setuptools python3-pip curl jq
 
     # Hotfix for customer using debian 9 having an issue with AttributeError: 'module' object has no attribute 'Cryptography_HAS_TLSEXT_HOSTNAME'
-    if [[ "$(cat /etc/issue.net)" == "Debian GNU/Linux 9" ]]; then
-        dpkg --purge python-openssl
-    fi
+    # if [[ "$(cat /etc/issue.net)" == "Debian GNU/Linux 9" ]]; then
+    #     dpkg --purge python3-openssl
+    # fi
 
-    pip install wheel
-    pip install -U cryptography
-    pip install ansible==2.7
+    pip3 install wheel
+    pip3 install -U cryptography
+    pip3 install ansible==2.7
 
 
     # Get WORKER_KEY from Vault
@@ -221,10 +215,10 @@ _() {
     fi
 
     if [[ "${CLOUD_PROVIDER}" == "aws" ]]; then
-        pip install awscli
+        pip3 install awscli
 
         # Be able to use paris region (https://github.com/boto/boto/issues/3783)
-        pip install --upgrade boto
+        pip3 install --upgrade boto
         echo '[Boto]
 use_endpoint_heuristics = True' > /etc/boto.cfg
 
