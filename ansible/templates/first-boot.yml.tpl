@@ -121,6 +121,6 @@
 
    - name: "volume - Format persistent volume in ext4"
      command: "{{ fs_volume_options[fs_volume_type]['mkfs_command'] }} -L ephemeral0 {{var_lib_device}}"
-     when: (var_lib_device != "nodevice") and initiate_volume_device|success
+     when: (var_lib_device != "nodevice") and initiate_volume_device is success
 
 {% endraw %}
