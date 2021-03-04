@@ -10,8 +10,8 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 def test_generated_files(host):
     # Concourse
-    assert host.file("/var/lib/concourse/worker_key").contains('BEGIN RSA PRIVATE KEY...')
-    #wait for worker logs
+    assert host.file("/var/lib/concourse/worker_key").contains('BEGIN PRIVATE KEY...')
+    # wait for worker logs
     time.sleep( 30 )
     assert host.file("/var/log/concourse-worker.log").contains('...worker.beacon-runner.beacon...')
 
@@ -26,6 +26,9 @@ def test_services_running(host):
     assert len(fluentd) >= 1
     assert len(telegraf) >= 1
     assert len(concourse) >= 1
+
+def test_concourse_worker_connected(host):
+    assert host.file("/var/log/concourse-worker.log").contains('...failed to establish SSH connection...') == False
 
 def test_telegraf(host):
     r = host.ansible("uri", "url=http://localhost:9100/metrics return_content=yes", check=False)
