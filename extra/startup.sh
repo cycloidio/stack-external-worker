@@ -195,7 +195,7 @@ _() {
 
     pip3 install wheel
     pip3 install -U cryptography
-    pip3 install ansible==2.7
+    pip3 install ansible==2.9
 
 
     # Get WORKER_KEY from Vault
