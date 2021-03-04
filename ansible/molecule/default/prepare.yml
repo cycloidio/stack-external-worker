@@ -12,7 +12,6 @@
           - curl
           - procps
           - btrfs-tools
-          - gnupg
         state: present
 
     - name: Create udev dir for ebs-automatic-nvme-mapping

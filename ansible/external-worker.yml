@@ -35,6 +35,11 @@
     - [ "{{ env }}-worker.yml", "empty.yml" ]
 
   pre_tasks:
+    - name: Install package dependencies
+      package:
+        name:
+          - gnupg
+        state: present
 
     - name: Found local disk
       find:
