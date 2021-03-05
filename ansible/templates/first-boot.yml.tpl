@@ -119,7 +119,7 @@
      failed_when: "\"{{ fs_volume_options[fs_volume_type]['initiate_volume_stdout'] }}\" in initiate_volume_device.stdout"
      when: var_lib_device != "nodevice"
 
-   - name: "volume - Format persistent volume in ext4"
+   - name: "volume - Format persistent volume in {{ fs_volume_type }}"
      command: "{{ fs_volume_options[fs_volume_type]['mkfs_command'] }} -L ephemeral0 {{var_lib_device}}"
      when: (var_lib_device != "nodevice") and initiate_volume_device is success
 
