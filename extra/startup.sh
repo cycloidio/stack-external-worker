@@ -186,7 +186,7 @@ _() {
     timeout 300 bash -c "while pgrep apt > /dev/null; do sleep 1; done"
 
     apt-get update
-    apt-get install -y --no-install-recommends git python3-setuptools python3-pip python3-dev libssl-dev curl jq cargo
+    apt-get install -yqq --no-install-recommends libssl-dev libffi-dev python3-dev python3-setuptools python3-pip git curl jq cargo
 
     python3 -m pip install -U pip
     python3 -m pip install -U wheel cryptography
