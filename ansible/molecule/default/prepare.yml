@@ -11,7 +11,7 @@
           - lsb-release
           - curl
           - procps
-          - btrfs-tools
+          - btrfs-progs
         state: present
 
     - name: Create udev dir for ebs-automatic-nvme-mapping

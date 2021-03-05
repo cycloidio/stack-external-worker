@@ -164,9 +164,9 @@
         name: jq
         state: present
 
-    - name: Install btrfs-tools
+    - name: Install btrfs tools
       apt:
-        name: btrfs-tools
+        name: btrfs-progs
         state: present
       when: fs_volume_type == "btrfs"
 
