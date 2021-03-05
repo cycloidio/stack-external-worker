@@ -30,6 +30,7 @@ _() {
 
     # Dedicated device used by the concourse worker for storage.
     # This device will be formatted to btrfs.
+    USE_LOCAL_DEVICE=${USE_LOCAL_DEVICE:-0}
     VAR_LIB_DEVICE=${VAR_LIB_DEVICE:-""}
 
     # Informations needed to connect to Concourse. Defaults to the Cycloid SaaS.
@@ -163,7 +164,11 @@ _() {
             elif [[ "${CLOUD_PROVIDER}" == "flexible-engine" ]]; then
                 VAR_LIB_DEVICE="/dev/vdb"
             elif [[ "${CLOUD_PROVIDER}" == "scaleway" ]]; then
-                VAR_LIB_DEVICE="/dev/sda"
+                if [[ ${USE_LOCAL_DEVICE} -eq 1 ]]; then
+                    VAR_LIB_DEVICE="/dev/vdb"
+                else
+                    VAR_LIB_DEVICE="/dev/sda"
+                fi
             else
                 VAR_LIB_DEVICE="nodevice"
             fi
@@ -243,6 +248,7 @@ concourse_tsa_worker_key: "{{ concourse_tsa_worker_key_base64 | b64decode}}"
 concourse_worker_team: "${TEAM_ID}"
 nvme_mapping_run: true
 install_user: ${INSTALL_USER}
+use_local_device: ${USE_LOCAL_DEVICE}
 var_lib_device: ${VAR_LIB_DEVICE}
 cloud_provider: ${CLOUD_PROVIDER}
 EOF
