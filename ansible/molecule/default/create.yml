@@ -34,13 +34,17 @@
         command: ["generate-key", "-t", "ssh", "-f", "/keys/tsa_host_key"]
         volumes:
           - "/tmp/molecule_test:/keys"
+
+    - name: Give some time for key generation to finish
+      wait_for:
+        timeout: 3
+      delegate_to: localhost
+
     - name: Set up authorized worker keys file
       copy:
         src: /tmp/molecule_test/worker_key.pub
         dest: /tmp/molecule_test/authorized_worker_keys
         mode: 0644
-      retries: 3
-      delay: 3
 
 - name: Create
   hosts: localhost

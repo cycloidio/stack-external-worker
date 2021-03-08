@@ -136,7 +136,7 @@ cd ansible
 virtualenv .env --clear
 source .env/bin/activate
 
-python3 -m pip install ansible==2.9.* molecule molecule-docker yamllint ansible-lint pytest-testinfra
+python3 -m pip install ansible==2.9.* molecule molecule-docker yamllint ansible-lint flake8 pytest-testinfra
 ```
 
 Run the tests:
