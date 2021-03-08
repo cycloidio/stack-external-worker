@@ -193,8 +193,12 @@ _() {
     apt-get update
     apt-get install -yqq --no-install-recommends libssl-dev libffi-dev python3-dev python3-setuptools python3-pip git curl jq cargo
 
+    cd /opt/
+    git clone -b ${STACK_BRANCH} https://github.com/cycloid-community-catalog/stack-external-worker
+    cd stack-external-worker/ansible
+
     python3 -m pip install -U pip
-    python3 -m pip install -U wheel cryptography
+    python3 -m pip install -r requirements.txt
     python3 -m pip install ansible==2.9.*
 
     # Get WORKER_KEY from Vault
@@ -224,10 +228,6 @@ use_endpoint_heuristics = True' > /etc/boto.cfg
         export AWS_DEFAULT_REGION=$(curl -sL http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
         export AWS_UNIQUE_ID=$(curl -L http://169.254.169.254/latest/meta-data/instance-id)
     fi
-
-    cd /opt/
-    git clone -b ${STACK_BRANCH} https://github.com/cycloid-community-catalog/stack-external-worker
-    cd stack-external-worker/ansible
 
     if [[ "${INSTALL_USER}" == "root" ]]; then
         export HOME="/root"
