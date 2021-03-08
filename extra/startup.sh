@@ -195,7 +195,7 @@ _() {
 
     python3 -m pip install -U pip
     python3 -m pip install -U wheel cryptography
-    python3 -m pip install ansible==2.9
+    python3 -m pip install ansible==2.9.*
 
     # Get WORKER_KEY from Vault
     if [[ -z "${WORKER_KEY}" ]] && [[ -n "${VAULT_SECRET_ID}" && -n "${VAULT_ROLE_ID}" ]] ; then
