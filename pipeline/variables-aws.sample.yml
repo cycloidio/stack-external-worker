@@ -103,3 +103,11 @@ config_ansible_path: ($ project $)/ansible
 #. config_terraform_path (required): ($ project $)/terraform/($ environment $)
 #+ Path of Terraform files in the config git repository
 config_terraform_path: ($ project $)/terraform/($ environment $)
+
+#. terraform_version (required): '0.12.29'
+#+ terraform version used to execute your code.
+terraform_version: '0.12.29'
+
+#. packer_version (required): '1.6.4'
+#+ packer version used to build the instance image.
+packer_version: '1.6.4'
