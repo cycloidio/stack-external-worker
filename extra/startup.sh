@@ -50,6 +50,15 @@ _() {
     # This variable can be ignored if you plan to get it from Vault.
     WORKER_KEY=${WORKER_KEY:-""}
 
+    # Concourse worker runtime to use for containers
+    # For example containerd, guardian, ... empty will let the default value for external worker stack
+    # https://concourse-ci.org/concourse-worker.html#configuring-runtimes
+    WORKER_RUNTIME=${WORKER_RUNTIME:-""}
+
+    # DNS server to use for Concourse worker
+    # The bahavior depend of the RUNTIME used, make sure to read about it in ansible-concourse Ansible role.
+    WORKER_DNS_SERVER=${WORKER_DNS_SERVER:-""}
+
     # Vault
     VAULT_URL=${VAULT_URL:-"https://vault.cycloid.io"}
     VAULT_ROLE_ID=${VAULT_ROLE_ID:-""}
@@ -249,7 +258,13 @@ install_user: ${INSTALL_USER}
 use_local_device: ${USE_LOCAL_DEVICE}
 var_lib_device: ${VAR_LIB_DEVICE}
 cloud_provider: ${CLOUD_PROVIDER}
+concourse_worker_dns_server: ${WORKER_DNS_SERVER}
 EOF
+
+    # Override worker runtime only if specified. If not using the default one from the stack located into ansible/default.yml
+    if [ -n "$WORKER_RUNTIME" ]; then
+        echo "concourse_worker_runtime: $WORKER_RUNTIME" >> "${ENV}-worker.yml"
+    fi
 
     ansible-galaxy install -r requirements.yml --force --roles-path=/etc/ansible/roles
 
