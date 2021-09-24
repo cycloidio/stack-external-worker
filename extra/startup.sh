@@ -241,8 +241,7 @@ use_endpoint_heuristics = True' > /etc/boto.cfg
     else
         export HOME="/home/${INSTALL_USER}"
     fi
-    # Remove spaces because some CloudProvider don't support empty parametter so their default value contain one space as empty
-    export VERSION=${VERSION// /}
+
     export VERSION=${VERSION:-$(curl -skL "${SCHEDULER_API_ADDRESS}/api/v1/info" | jq -r '.version')}
 
     cat >> "${ENV}-worker.yml" <<EOF
