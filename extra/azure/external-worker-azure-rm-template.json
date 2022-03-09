@@ -289,6 +289,13 @@
         "description": "Disk type for the Cycloid CI worker."
       }
     },
+    "subnetResourceGroupName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "If your vnet and subnet is located in a different ressource group, specify the name of the resource group here."
+      }
+    },
     "customerTag": {
       "type": "string",
       "defaultValue": "cycloid",
@@ -355,6 +362,7 @@
     "nicName": "[concat(variables('namePrefix'), '-nic')]",
     "ipConfigName": "[concat(variables('namePrefix'), '-ipconfig')]",
     "adminUsername": "cycloid",
+    "subnetID": "[if(not(empty(parameters('subnetResourceGroupName'))), resourceId(parameters('subnetResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName')), resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName')))]",
     "linuxConfiguration": {
       "disablePasswordAuthentication": true,
       "ssh": {
@@ -515,7 +523,7 @@
                       "name": "[variables('ipConfigName')]",
                       "properties": {
                         "subnet": {
-                          "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
+                          "id": "[variables('subnetID')]"
                         },
                         "publicIPAddressConfiguration": {
                           "name": "pub1",
