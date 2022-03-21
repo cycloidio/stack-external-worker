@@ -26,7 +26,7 @@
       "project_id": "{{user `scw_project`}}",
       "access_key": "{{user `scw_access_key`}}",
       "secret_key": "{{user `scw_secret_key`}}",
-      "image": "cc9188b3-3938-47d7-b091-c9ecad1fe507",
+      "image": "debian_buster",
       "image_name": "{{user `project`}}_{{user `role`}}_{{user `env`}}_{{timestamp}}",
       "snapshot_name": "{{user `project`}}_{{user `role`}}_{{user `env`}}_{{timestamp}}",
       "remove_volume": true,
