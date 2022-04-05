@@ -232,14 +232,14 @@
       "type": "string",
       "defaultValue": "scheduler.cycloid.io",
       "metadata": {
-        "description": "Scheduler API host: Cycloid CI scheduler host address (On-premises)"
+        "description": "Scheduler host: Cycloid CI scheduler host address (On-premises)"
       }
     },
     "schedulerPort": {
       "type": "int",
       "defaultValue": 32223,
       "metadata": {
-        "description": "Scheduler API port: Cycloid CI scheduler host port (On-premises)"
+        "description": "Scheduler port: Cycloid CI scheduler port (On-premises)"
       }
     },
     "schedulerTsaPublicKey": {
@@ -260,7 +260,7 @@
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "Override DNS server or add additionals one depending of the container runtime you use. ex '1.1.1.1,8.8.8.8'"
+        "description": "Override DNS server or add additionals one depending of the worker runtime specified. ex '1.1.1.1,8.8.8.8'"
       }
     },
     "sgAuthorizedCidrs": {
@@ -321,7 +321,7 @@
       "type": "string",
       "defaultValue": "workers",
       "metadata": {
-        "description": "Name for the role, used as Azure tag"
+        "description": "Name for the worker role, used as Azure tag"
       }
     },
     "stackBranch": {

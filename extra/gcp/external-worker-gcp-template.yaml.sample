@@ -7,7 +7,7 @@ resources:
   properties:
     volumeSize: 150
     numberOfWorkers: 1
-    customerTag: ${CYCLOID_ORG}
+    organizationTag: ${CYCLOID_ORG}
     teamId: ${CYCLOID_TEAM}
     projectTag: ${CYCLOID_WORKER_NAME}
     workerKey: ${CYCLOID_WORKER_KEY}

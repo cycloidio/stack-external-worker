@@ -87,9 +87,9 @@ Metadata:
       SchedulerApiAddress:
         default: "Scheduler API url: Cycloid CI scheduler http api address (On-premises)"
       SchedulerHost:
-        default: "Scheduler API host: Cycloid CI scheduler host address (On-premises)"
+        default: "Scheduler host: Cycloid CI scheduler host address (On-premises)"
       SchedulerPort:
-        default: "Scheduler API port: Cycloid CI scheduler host port (On-premises)"
+        default: "Scheduler port: Cycloid CI scheduler port (On-premises)"
       TsaPublicKey:
         default: "Scheduler TSA public key: Cycloid CI scheduler public key (On-premises)"
 Parameters:
@@ -288,7 +288,7 @@ Parameters:
     Type: String
     Default: prod
   RoleTag:
-    Description: Name for the role, used as AWS tag
+    Description: Name for the worker role, used as AWS tag
     Type: String
     Default: workers
   StackBranch:
