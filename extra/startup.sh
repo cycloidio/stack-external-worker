@@ -204,7 +204,7 @@ _() {
     timeout 300 bash -c "while pgrep apt > /dev/null; do sleep 1; done"
 
     apt-get update
-    apt-get install -yqq --no-install-recommends libssl-dev libffi-dev python3-dev python3-setuptools python3-pip git curl jq cargo gnupg2
+    apt-get install -yqq --no-install-recommends libssl-dev libffi-dev python3-dev python3-setuptools python3-pip git curl jq cargo gnupg2 file
 
     cd /opt/
     # Remove potential existing file, in case you want to re-run the setup script on the same instance
