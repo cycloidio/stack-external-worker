@@ -42,6 +42,7 @@ Metadata:
         Label:
           default: "Worker advanced (optional)"
         Parameters:
+          - WorkerTag
           - WorkerRuntime
           - WorkerDnsDerver
           - VolumeSize
@@ -128,6 +129,10 @@ Parameters:
     MinLength: 1
   WorkerRuntime:
     Description: Specify the default worker container runtimes https://concourse-ci.org/concourse-worker.html#configuring-runtimes
+    Type: String
+    Default: ""
+  WorkerTag:
+    Description: Specify a TAG for worker https://concourse-ci.org/concourse-worker.html#tags-and-team-workers
     Type: String
     Default: ""
   WorkerDnsDerver:
@@ -590,6 +595,10 @@ Resources:
             - Ref: WorkerRuntime
             - "'\n"
 
+            - "export WORKER_TAG='"
+            - Ref: WorkerTag
+            - "'\n"
+
             - "export WORKER_DNS_SERVER="
             - Ref: WorkerDnsDerver
             - "\n"
@@ -685,6 +694,10 @@ Resources:
 
             - "export WORKER_RUNTIME='"
             - Ref: WorkerRuntime
+            - "'\n"
+
+            - "export WORKER_TAG='"
+            - Ref: WorkerTag
             - "'\n"
 
             - "export WORKER_DNS_SERVER="
