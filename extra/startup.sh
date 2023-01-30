@@ -55,6 +55,9 @@ _() {
     # https://concourse-ci.org/concourse-worker.html#configuring-runtimes
     WORKER_RUNTIME=${WORKER_RUNTIME:-""}
 
+    # Concourse worker tag https://concourse-ci.org/concourse-worker.html#tags-and-team-workers
+    WORKER_TAG=${WORKER_TAG:-""}
+
     # DNS server to use for Concourse worker
     # The bahavior depend of the RUNTIME used, make sure to read about it in ansible-concourse Ansible role.
     WORKER_DNS_SERVER=${WORKER_DNS_SERVER:-""}
@@ -267,6 +270,10 @@ EOF
     # Override worker runtime only if specified. If not using the default one from the stack located into ansible/default.yml
     if [ -n "$WORKER_RUNTIME" ]; then
         echo "concourse_worker_runtime: $WORKER_RUNTIME" >> "${ENV}-worker.yml"
+    fi
+    # Override worker tag only if specified. If not using the default one from the stack located into ansible/default.yml
+    if [ -n "$WORKER_TAG" ]; then
+        echo "concourse_worker_tag: $WORKER_TAG" >> "${ENV}-worker.yml"
     fi
 
     ansible-galaxy install -r requirements.yml --force --roles-path=/etc/ansible/roles
