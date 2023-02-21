@@ -51,7 +51,7 @@ Metadata:
       -
         Label:
           default: "Cycloid advanced (optional)"
-        Parameters: 
+        Parameters:
           - OrganizationTag
           - EnvironmentTag
           - RoleTag
@@ -547,6 +547,10 @@ Resources:
       IamInstanceProfile:
         Ref: "WorkersInstanceProfile"
       BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeType: gp2
+            VolumeSize: '25'
         - DeviceName: "/dev/xvdf"
           Ebs:
             VolumeSize:
@@ -648,6 +652,10 @@ Resources:
       IamInstanceProfile:
         Ref: "WorkersInstanceProfile"
       BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeType: gp2
+            VolumeSize: '25'
         - DeviceName: "/dev/xvdf"
           Ebs:
             VolumeSize:
