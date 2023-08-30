@@ -218,7 +218,7 @@ _() {
     #python3 -m pip install -U pip
     #python3 -m pip install -r requirements.txt
     #python3 -m pip install ansible==2.9.*
-    pipx install ansible==2.9.* --system-site-packages                                                                                                                                                              |
+    pipx install ansible==8.3.* --system-site-packages                                                                                                                                                              |
     pipx runpip ansible install -r requirements.txt                                                                                                                                                                 |
     export PATH="$PATH:$(pipx environment --value PIPX_BIN_DIR)"
 
