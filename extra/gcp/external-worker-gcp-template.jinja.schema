@@ -108,7 +108,7 @@ properties:
   workerDnsServer:
     description: "Override DNS server or add additionals one depending of the worker runtime specified. ex '1.1.1.1,8.8.8.8'"
     type: string
-    default: ""
+    default: "1.1.1.1"
   debugMode:
     description: Enable of disable debug mode. Debug will ensure the worker keep running even if the initial setub boot script is failing.
     type: boolean
