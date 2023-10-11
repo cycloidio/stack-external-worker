@@ -229,9 +229,9 @@ _() {
       python3 -m pip install ansible==2.9.*
     else
       # Debian 12 and later
-      pipx install ansible==8.3.* --system-site-packages                                                                                                                                                              |
-      pipx runpip ansible install -r requirements.txt                                                                                                                                                                 |
-      export PATH="$PATH:$(pipx environment --value PIPX_BIN_DIR)"
+      pipx install ansible==8.3.* --system-site-packages
+      pipx runpip ansible install -r requirements.txt
+      export PATH="$PATH:$(pipx environment --value PIPX_LOCAL_VENVS)/ansible/bin"
     fi
 
     # Get WORKER_KEY from Vault
@@ -247,10 +247,15 @@ _() {
     ssh-keygen -l -f $TMP_WORKER_KEY > /dev/null 2>&1 || (echo "error: WORKER_KEY Does not seems to be an SSH PRIVATE KEY." >&2 && exit 2)
 
     if [[ "${CLOUD_PROVIDER}" == "aws" ]]; then
-        python3 -m pip install awscli
-
-        # Be able to use paris region (https://github.com/boto/boto/issues/3783)
-        python3 -m pip install --upgrade boto
+        if [ "$DEBIAN_VERSION" -lt "12" ]; then
+          python3 -m pip install awscli
+          # Be able to use paris region (https://github.com/boto/boto/issues/3783)
+          python3 -m pip install --upgrade boto
+        else
+          # Debian 12 and later
+          pipx runpip ansible install awscli
+          pipx runpip ansible install --upgrade boto
+        fi
         echo '[Boto]
 use_endpoint_heuristics = True' > /etc/boto.cfg
 
