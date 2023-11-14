@@ -16,7 +16,7 @@ keywords:
   - 'provider:scw'
 author: 'Cycloid'
 image: |
-  https://raw.githubusercontent.com/cycloid-community-catalog/stack-external-worker/master/icon.png
+  https://raw.githubusercontent.com/cycloidio/stack-external-worker/master/icon.png
 technologies:
   - technology: Amazon Auto Scaling Group
     version: n/a

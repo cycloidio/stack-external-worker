@@ -1,5 +1,5 @@
 imports:
-- path: https://raw.githubusercontent.com/cycloid-community-catalog/stack-external-worker/master/extra/gcp/external-worker-gcp-template.jinja
+- path: https://raw.githubusercontent.com/cycloidio/stack-external-worker/master/extra/gcp/external-worker-gcp-template.jinja
 
 resources:
 - name: cycloid-gcp-worker

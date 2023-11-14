@@ -15,4 +15,4 @@ exec &> >(tee -a ${LOG_FILE})
 
 # Run the startup installation script.
 # The $RANDOM variable is here used to avoid remote network caching.
-wget -qO- "https://raw.githubusercontent.com/cycloid-community-catalog/stack-external-worker/${STACK_BRANCH}/extra/startup.sh?${RANDOM}" | bash -s scaleway
+wget -qO- "https://raw.githubusercontent.com/cycloidio/stack-external-worker/${STACK_BRANCH}/extra/startup.sh?${RANDOM}" | bash -s scaleway

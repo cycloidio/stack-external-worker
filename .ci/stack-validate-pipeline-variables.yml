@@ -4,14 +4,14 @@
 
 #. git_repository (required): git@github.com:my/repo_to_validate.git
 #+ Git repository URL containing the stack to validate.
-git_repository: git@github.com:cycloid-community-catalog/stack-external-worker.git
+git_repository: git@github.com:cycloidio/stack-external-worker.git
 
 #. git_branch (required): master
 #+ Branch of the stack to validate Git repository.
 git_branch: master
 
 # git status
-git_repository_name: cycloid-community-catalog/stack-external-worker
+git_repository_name: cycloidio/stack-external-worker
 git_access_token: ((github_access_token.data))
 
 #. git_key (required): ((git.ssh_key))

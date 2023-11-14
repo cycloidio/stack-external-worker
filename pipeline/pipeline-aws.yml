@@ -135,7 +135,7 @@ resources:
   type: git
   icon: git
   source:
-    uri: https://github.com/cycloid-community-catalog/stack-external-worker
+    uri: https://github.com/cycloidio/stack-external-worker
     branch: ((stack_git_branch))
     paths:
       - terraform/aws/*
@@ -156,7 +156,7 @@ resources:
   type: git
   icon: git
   source:
-    uri: https://github.com/cycloid-community-catalog/stack-external-worker
+    uri: https://github.com/cycloidio/stack-external-worker
     branch: ((stack_git_branch))
     paths:
       - ansible/*

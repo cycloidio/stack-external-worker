@@ -219,7 +219,7 @@ _() {
     cd /opt/
     # Remove potential existing file, in case you want to re-run the setup script on the same instance
     rm -rf stack-external-worker
-    git clone -b ${STACK_BRANCH} https://github.com/cycloid-community-catalog/stack-external-worker
+    git clone -b ${STACK_BRANCH} https://github.com/cycloidio/stack-external-worker
     cd stack-external-worker/ansible
 
     if [ "$DEBIAN_VERSION" -lt "12" ]; then

@@ -631,7 +631,7 @@ Resources:
 
               # Run the startup installation script.
               # The $RANDOM variable is here used to avoid remote network caching.
-              curl -sSL "https://raw.githubusercontent.com/cycloid-community-catalog/stack-external-worker/${STACK_BRANCH}/extra/startup.sh?${RANDOM}" | bash -s aws
+              curl -sSL "https://raw.githubusercontent.com/cycloidio/stack-external-worker/${STACK_BRANCH}/extra/startup.sh?${RANDOM}" | bash -s aws
 
   LaunchConfigSpotPrice:
     Type: AWS::AutoScaling::LaunchConfiguration
@@ -736,7 +736,7 @@ Resources:
 
               # Run the startup installation script.
               # The $RANDOM variable is here used to avoid remote network caching.
-              curl -sSL "https://raw.githubusercontent.com/cycloid-community-catalog/stack-external-worker/${STACK_BRANCH}/extra/startup.sh?${RANDOM}" | bash -s aws
+              curl -sSL "https://raw.githubusercontent.com/cycloidio/stack-external-worker/${STACK_BRANCH}/extra/startup.sh?${RANDOM}" | bash -s aws
 
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
